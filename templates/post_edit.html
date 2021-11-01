@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+
+<h2>Edit Post:</h2>
+
+<form action="/posts/{{post.id}}/edit" method="post">
+    <label for="title">Title</label>
+    <input type='text' name='title' value="{{post.title}}">
+    <label for="content">Content</label>
+    <input type='text' name='content' value="{{post.content}}">
+    <button>Save</button>
+</form>
+<form action="/posts/{{post.id}}">
+    <button>Cancel</button>
+</form>
+
+{% endblock %}
