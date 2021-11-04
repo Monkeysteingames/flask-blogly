@@ -31,7 +31,7 @@ class User(db.Model):
 
     def __repr__(self):
         u = self
-        return f"<User id={u.id} first name={u.first_name} last name={u.last_name} img={u.image_url}>"
+        return f"<User id={u.id} first name={u.first_name} last name={u.last_name} img={u.img_url}>"
 
 
 class Post(db.Model):
@@ -53,3 +53,30 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship('User', backref="posts")
+
+    tags = db.relationship('Tag', secondary='post_tags', backref='posts', cascade="all, delete", passive_deletes=True
+                           )
+
+
+class Tag(db.Model):
+    """Model for tags"""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+
+    name = db.Column(db.String, nullable=False)
+
+
+class PostTag(db.Model):
+    """Model for post_tags - Joins tables for Post and Tag"""
+
+    __tablename__ = "post_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        "posts.id"), primary_key=True)
+
+    tag_id = db.Column(db.Integer, db.ForeignKey(
+        "tags.id"), primary_key=True)

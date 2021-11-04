@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<form action="/users">
+    <button>Go Back</button>
+</form>
 <img src="{{user.img_url}}" alt="user avatar" width="200" height="200">
 <h1>{{user.first_name}} {{user.last_name}}</h1>
 <form action="/users/{{user.id}}/edit">
